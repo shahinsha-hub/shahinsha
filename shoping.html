@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Shop Shopping List</title>
+    <link rel="stylesheet" href="shoping.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping List</h1>
+        <input type="text" id="shopInput" placeholder="Enter shop name...">
+        <button id="createShopButton">Create Shop</button>
+        <div id="shopListContainer">
+            <h2>Shops</h2>
+            <ul id="shopList"></ul>
+        </div>
+        <div id="currentShopContainer" style="display: none;">
+            <h2 id="currentShopTitle"></h2>
+            <input type="text" id="itemInput" placeholder="Enter an item...">
+            <button id="addItemButton">Add Item</button>
+            <ul id="shoppingList"></ul>
+        </div>
+    </div>
+    <script src="shoping.js"></script>
+</body>
+</html>
