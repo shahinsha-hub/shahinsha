@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_EVENTS 100
+#define TITLE_LENGTH 100
+#define DATE_LENGTH 20
+#define LOCATION_LENGTH 100
+
+// Define the structure for an event
+struct Event {
+    int id;
+    char title[TITLE_LENGTH];
+    char date[DATE_LENGTH];
+    char location[LOCATION_LENGTH];
+};
+
+// Function prototypes
+void addEvent(struct Event events[], int *count);
+void displayEvents(struct Event events[], int count);
+void clearInputBuffer();
+
+int main() {
+    struct Event events[MAX_EVENTS];
+    int count = 0;
+    int choice;
+
+    do {
+        printf("\nEvent Scheduling Program\n");
+        printf("1. Add Event\n");
+        printf("2. Display Events\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        clearInputBuffer();  // Clear the input buffer
+
+        switch (choice) {
+            case 1:
+                addEvent(events, &count);
+                break;
+            case 2:
+                displayEvents(events, count);
+                break;
+            case 3:
+                printf("Exiting the program.\n");
+                break;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    } while (choice != 3);
+
+    return 0;
+}
+
+// Function to add an event
+void addEvent(struct Event events[], int *count) {
+    if (*count >= MAX_EVENTS) {
+        printf("Cannot add more events, limit reached!\n");
+        return;
+    }
+
+    struct Event newEvent;
+    newEvent.id = *count + 1;  // Auto-increment ID
+
+    printf("Enter event title: ");
+    fgets(newEvent.title, TITLE_LENGTH, stdin);
+    newEvent.title[strcspn(newEvent.title, "\n")] = 0; // Remove newline
+
+    printf("Enter event date (YYYY-MM-DD): ");
+    fgets(newEvent.date, DATE_LENGTH, stdin);
+    newEvent.date[strcspn(newEvent.date, "\n")] = 0; // Remove newline
+
+    printf("Enter event location: ");
+    fgets(newEvent.location, LOCATION_LENGTH, stdin);
+    newEvent.location[strcspn(newEvent.location, "\n")] = 0; // Remove newline
+
+    events[*count] = newEvent;
+    (*count)++;
+    printf("Event added successfully!\n");
+}
+
+// Function to display all events
+void displayEvents(struct Event events[], int count) {
+    if (count == 0) {
+        printf("No events scheduled.\n");
+        return;
+    }
+
+    printf("\nList of Events:\n");
+    for (int i = 0; i < count; i++) {
+        printf("ID: %d\n", events[i].id);
+        printf("Title: %s\n", events[i].title);
+        printf("Date: %s\n", events[i].date);
+        printf("Location: %s\n", events[i].location);
+        printf("--------------------\n");
+    }
+}
+
+// Function to clear input buffer
+void clearInputBuffer() {
+    while (getchar() != '\n');
+}
